@@ -113,3 +113,20 @@ let printAll = async () => {
 
 printAll()
 ```
+
+## Practical Uses
+Chances are, if you're a web developer, you'll eventually have to work with HTTP requests - this is where we can sprinkly some of the new async await sugar we've learned!
+```
+let fetchMe = async () => {
+    let response = await fetch('https://jsonplaceholder.typicode.com/posts/1')
+    let parsedData = await response.json()
+    console.log(parsedData)
+}
+
+fetchMe();
+```
+
+### Further Reading:
+- [Callbacks, Promises and Async](https://medium.com/@_bengarrison/javascript-es8-introducing-async-await-functions-7a471ec7de8a)
+- [Callbacks, Promises and Async (again)](https://medium.com/front-end-hacking/callbacks-promises-and-async-await-ad4756e01d90)
+- [MDN Documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function)
