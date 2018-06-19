@@ -31,7 +31,7 @@ A callback is a function that's passed to another function. We can fix the probl
 let printMe = (str, callbackFn) => {
   setTimeout(
     () => {
-      console.log(string);
+      console.log(str);
       callbackFn()
     }, 
     Math.floor(Math.random() * 100) + 1
@@ -55,3 +55,61 @@ printAll();
 This way, each function will execute in order, no matter what the value of the `setTimeout()` timer evalutes to. However, this doesn't make for neat code - imagine what happens in bigger files when you have to nest callbacks many times. It gets fairly confusing, and that's what Promises in Javascript try to address.
 
 ## Javascript Promises
+[Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) allow us to eliminate the use of callbacks up to a degree, and allows for much cleaner code. If we were to solve the same problem above, but with promises:
+
+```
+let printMe = (str) => {
+    return new Promise((resolve, reject) => {
+        setTimeout(
+            () => {
+            console.log(str);
+            resolve();
+            }, 
+            Math.floor(Math.random() * 100) + 1
+        )
+    })
+};
+
+let printAll = () => {
+    printMe("a")
+    .then(() => {
+        printMe("b")
+    })
+    .then(() => {
+        printMe("c")
+    })
+    .catch((error) => {
+        console.log(error);
+    })
+};
+
+printAll();
+```
+This looks a lot cleaner than before, but we can achieve the same results with async/await. 
+
+## Async / Await
+At its core, async await are Promises with the addition of syntatic sugar. We can scrap the nesting from callbacks and the use of brackets in promises, and we will be left with code that looks almost synchronous in nature.
+
+```
+// this is the same function definition as the promise section
+
+let printMe = (str) => {
+    return new Promise((resolve, reject) => {
+        setTimeout(
+            () => {
+            console.log(str);
+            resolve();
+            }, 
+            Math.floor(Math.random() * 100) + 1
+        )
+    })
+};
+
+let printAll = async () => {
+  await printMe("a");
+  await printMe("b");
+  await printMe("c");
+}
+
+printAll()
+```
