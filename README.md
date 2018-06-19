@@ -115,7 +115,7 @@ printAll()
 ```
 
 ## Practical Uses
-Chances are, if you're a web developer, you'll eventually have to work with HTTP requests - this is where we can sprinkly some of the new async await sugar we've learned!
+Chances are, if you're a web developer, you'll eventually have to work with HTTP requests - this is where we can sprinkle some of the new async await syntatic sugar we've learned!
 ```
 let fetchMe = async () => {
     let response = await fetch('https://jsonplaceholder.typicode.com/posts/1')
