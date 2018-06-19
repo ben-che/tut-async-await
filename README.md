@@ -4,15 +4,54 @@ Before we begin, I think it's always good to have some sort of background contex
 This, however, posed a problem: 
 
 ```
-console.log("a");
+let printMe = (str) => {
+  setTimeout(
+    () => {
+      console.log(string)
+    }, 
+    Math.floor(Math.random() * 100) + 1
+  )
+}
 
-setTimeout( () => {
-    console.log("b")
-    }, 500);
+let printAll = () => {
+    printMe("a");
+    printMe("b");
+    printMe("c");
+}
 
-console.log("c");
+printAll()
 ```
 
-Because of the async nature of the `setTimeout()` function, the order in which the letters are printed will always be "a", "c" then "b".
+Because of the async nature of the `setTimeout()` function, the order in which the letters will be randomized.
 
 ## Javascript Callbacks
+A callback is a function that's passed to another function. We can fix the problem above with a callback:
+
+```
+let printMe = (str, callbackFn) => {
+  setTimeout(
+    () => {
+      console.log(string);
+      callbackFn()
+    }, 
+    Math.floor(Math.random() * 100) + 1
+  )
+}
+
+let printAll = () => {
+    printMe("a", () => {
+        printMe("b", () => {
+            printMe("c", () => {
+                console.log('done printing')
+            })
+        })
+    })
+}
+
+printAll();
+
+```
+
+This way, each function will execute in order, no matter what the value of the `setTimeout()` timer evalutes to. However, this doesn't make for neat code - imagine what happens in bigger files when you have to nest callbacks many times. It gets fairly confusing, and that's what Promises in Javascript try to address.
+
+## Javascript Promises
